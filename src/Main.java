@@ -5,6 +5,7 @@ import java.nio.file.*;
 
 public class Main {
     static Scanner s = new Scanner(System.in);
+    static String pathIn = "";
 
     public static Boolean checking() {
         String check;
@@ -12,10 +13,23 @@ public class Main {
         check = s.nextLine();
         return check.equalsIgnoreCase("да");
     }
+
+    public static String checkExcept() throws IOException {
+        System.out.println("Введите путь файла");
+        pathIn = s.nextLine();
+        try {
+            Path fis = Paths.get(
+                    "C:\\Users\\fedye\\OneDrive\\Рабочий стол\\input5.txt");
+        }
+        catch (Exception exception) {
+            System.out.println("Файла не существует");
+            return null;
+        }
+        return pathIn;
+    }
     public static void ioCoping() throws IOException {
         FileInputStream fis = null;
         FileOutputStream fos = null;
-        String path = "";
 
         if (!checking()) {
             return;
@@ -63,28 +77,21 @@ public class Main {
     }
 
     public static void nio2Coping() throws IOException {
-        Path fis = Paths.get(
-                "C:\\Users\\fedye\\OneDrive\\Рабочий стол\\input5.txt");
-
-        Path fos = Paths.get(
-                "C:\\Users\\fedye\\OneDrive\\Рабочий стол\\output4.txt");
-
         if (!checking()) {
             return;
         }
+
+        pathIn = checkExcept();
+        if (pathIn == null) {
+            return;
+        }
+
+        Path fis = Paths.get(pathIn);
+
+        Path fos = Paths.get(
+                "C:\\Users\\fedye\\OneDrive\\Рабочий стол\\output5.txt");
         Files.copy(fis, fos, StandardCopyOption.REPLACE_EXISTING);
         System.out.println("Файл скопирован");
-    }
-
-    public static boolean check(String path) throws IOException {
-        try {
-            Path fis = Paths.get(
-                    "C:\\Users\\fedye\\OneDrive\\Рабочий стол\\input5.txt");
-        }
-        catch (Exception exception) {
-            return false;
-        }
-        return true;
     }
 
     public static void main(String[] args)
@@ -94,3 +101,4 @@ public class Main {
         nio2Coping();
     }
 }
+// C:\Users\fedye\OneDrive\Рабочий стол\input.txt
